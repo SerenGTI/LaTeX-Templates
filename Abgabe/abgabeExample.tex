@@ -1,0 +1,32 @@
+\documentclass[]{abgabe}
+
+\setcounter{sheetnr}{1} % Nummer des Übungsblattes
+
+
+\title{Mustermodule und Anderes}
+\date{13. Juli 2018}
+\author{Martina Musterfrau}
+
+\begin{document}
+	\maketitle
+	\begin{noornamentex}{Fibonacci-Zahlen}
+		Implementieren Sie eine Methode
+		\begin{equation*}
+			\texttt{Fibonacci(ByVal n As Integer) As Integer}
+		\end{equation*}
+		die ein Integer $n$ übergeben bekommt und die $n$te Fibonaccizahl zurückgibt.
+	\end{noornamentex}
+
+	\begin{ex}{Fakultät}
+		Implementieren Sie eine Methode $$\texttt{Faculty(ByVal n As Double) As Double}$$ die einen ganzzahligen Double $n$ übergeben bekommt und $n!$ zurückgibt.
+		\begin{subex}
+			\item $a\equiv 3\mod 10$
+			\item $f(x) =\frac{\mathcal S(n)}{2} n!\in\N$
+			\item Ein wenig Text.
+		\end{subex}
+
+		\lstinputlisting[language=Java, firstline=51, lastline=72]{../../logic-simulator/src/parts/Part.java}
+
+	\end{ex}
+
+\end{document}

@@ -1,0 +1,97 @@
+\documentclass[german, green]{lebenslauf}
+
+\author{Max Mustermann}
+
+
+\begin{document}
+\maketitle
+\begin{personalData}
+	\pd{Anschrift}{Milchstraße 1}
+	\pd{Telefon}{+49 1}
+	\pd{E-Mail}{muster@mustermail.de}
+	\pd{Geburtstag}{10.10.0001}
+	\pd{Nationalität}{Deutsch}
+\end{personalData}
+
+
+
+
+\begin{timeline}
+	\header{Ausbildung}
+	\tl{\textbf{2017 - heute}}{
+		\textbf{Informatik-Studium an der Universität Stuttgart}
+		\newline nächster Abschluss: B.Sc. Informatik
+	}
+
+	\header{Arbeitserfahrung}
+
+
+	\header{Engagement}
+
+	\tl{2001 - heute}{
+		Professionelles Abschreiben-lassen
+	}
+
+	\tl{Zeit}{Daten}
+	\tl{Umgebungen}{tl-Umgebung in der Timeline\newline
+		skill und subskill-Umgebung mit Linie links für Kenntnisse und Fähigkeiten\newline
+		multicol und multicolruled für 2 Spalten mit richtigen Abständen
+	}
+	\tl{Farben}{In der Documentclass stehen die Farben green, red, orange, blue zur Verfügung. Kein Farb-Parameter setzt den Akzent auf Grau.}
+
+	\tl{Sprache}{wip, Documentclass ist auch in english verfügbar, noch nicht so ganz ausgereift}
+
+	\tl{Passbild}{wip, wird bei personalData ergänzt.. irgendwann. In den meisten Lebensläufen ist aber sowieso keins gefordert.}
+
+	\newpage
+
+	\header{Timeline unterstützt newpage}
+
+\end{timeline}
+
+	\begin{skill}{Sprachen}
+		\begin{subskill}{Deutsch}
+			Muttersprache
+		\end{subskill}
+
+		\begin{subskill}{Englisch}
+			verhandlungssicher
+		\end{subskill}
+	\end{skill}
+
+
+	\begin{skill}{Programmierung}
+		\begin{multicolruled}
+			\begin{subskill}{Java}
+				Großartige Kenntnisse!
+				\begin{description}[labelindent=1em]
+				  \item[Feb. 2018:] Dinge die du getan hast
+				  \item[Juli 2017:] Dinge die du wann anders getan hast.
+				\end{description}
+			\end{subskill}
+
+			\columnbreak
+
+			\begin{subskill}{Was weiß ich}
+				Dinge
+			\end{subskill}
+
+			\begin{subskill}{Visual Basic}
+				Persönliche Abneigung gegen dieses Produkt.
+			\end{subskill}
+
+		\end{multicolruled}
+
+	\end{skill}
+
+	\begin{skill}{Andere Dinge die man so können kann}
+		Skill-Umgebung
+
+		\begin{subskill}{Wenn du weiter unterteilen willst}
+			Wow
+		\end{subskill}
+	\end{skill}
+
+
+\sign
+\end{document}
