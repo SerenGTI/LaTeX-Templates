@@ -21,6 +21,7 @@
 \RequirePackage{xfrac}
 \RequirePackage{enumitem}
 \RequirePackage{listings}
+\RequirePackage{multicol}
 \RequirePackage{tikz}
 \usetikzlibrary{automata,positioning}
 
@@ -207,4 +208,15 @@
     false
   },
   emphstyle=[2]{\color{orange!70!gray}},
+  emph=[3]{
+  push,
+  pop,
+  Mult,
+  Sub,
+  STORE,
+  LOAD,
+  sub,
+  mult
+  },
+  emphstyle=[3]{\bfseries\color{blue}},
 }
