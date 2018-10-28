@@ -23,7 +23,7 @@
 \RequirePackage{listings}
 \RequirePackage{multicol}
 \RequirePackage{tikz}
-\usetikzlibrary{automata,positioning}
+\usetikzlibrary{automata,positioning,calc}
 
 %Schriftfamilien
 \RequirePackage{lmodern}%rm
@@ -176,7 +176,8 @@
   deletekeywords={},
   escapeinside={\%*}{*)},
   extendedchars=true,
-  frame=l,
+  frame=lines,
+  xleftmargin=10pt,
   keepspaces=true,
   keywordstyle=\bfseries\color{red!60!black},
   commentstyle=\itshape\color{gray!40!black},
@@ -185,12 +186,15 @@
   language=Java,
   morekeywords={*,...},
   numbers=left,
-  numbersep=6pt,
+  numbersep=5pt,
+  resetmargins=true,
   numberstyle=\tiny\color{gray!40!black},
   rulecolor=\color{black},
   showspaces=false,
   showstringspaces=false,
   showtabs=false,
+  aboveskip=\medskipamount,
+  belowskip=-2\medskipamount,
   stepnumber=1,
   tabsize=2,
   title=\lstname,
@@ -205,7 +209,7 @@
     undefined,
     this,
     true,
-    false
+    false,
   },
   emphstyle=[2]{\color{orange!70!gray}},
   emph=[3]{
@@ -216,7 +220,10 @@
   STORE,
   LOAD,
   sub,
-  mult
+  mult,
+  Add,
+  od,
+  function
   },
-  emphstyle=[3]{\bfseries\color{blue}},
+  emphstyle=[3]{\bfseries\color{red!60!black}},
 }
