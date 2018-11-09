@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{simonkoenigmathe}[2018/06/30 Simon Koenig Abgabentemplate]
+\ProvidesClass{abgabe}[2018/06/30 Simon Koenig Abgabentemplate]
 
 \LoadClass[a4paper, oneside, 10pt]{article}
 
@@ -31,6 +31,7 @@
 \RequirePackage{ascii}%tt
 \RequirePackage{newtxmath}
 \RequirePackage[T1]{fontenc}
+
 
 
 
@@ -139,8 +140,9 @@
 \newcommand{\C}{\ensuremath\mathbb{C}}
 \newcommand{\set}[2]{\ensuremath \left\{ #1 \,\middle|\, #2 \right\}}%Menge
 \newcommand{\simpleset}[1]{\ensuremath \left\{ #1 \right\}}%aufzählende Menge
-\newcommand{\diff}{\mathrm d\!}
+\newcommand{\diff}{\mathrm d}
 \renewcommand{\vector}[1]{\renewcommand{\arraystretch}{1}\ensuremath\begin{pmatrix} #1 \end{pmatrix}}%Vektor
+\newcommand{\IV}{\ensuremath\stackrel{\mathclap{\text{\tiny{(IV)}}}}{=}}
 
 
 
@@ -223,7 +225,13 @@
   mult,
   Add,
   od,
-  function
+  function,
+  end,
+  var,
+  begin,
+  to,
+  is,
+  then
   },
   emphstyle=[3]{\bfseries\color{red!60!black}},
 }
