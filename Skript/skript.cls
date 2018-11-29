@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{simonkoenigmathe}[2018/07/14 Simon Koenig Skript-Klasse]
+\ProvidesClass{skript}[2018/07/14 Simon Koenig Skript-Klasse]
 
 \LoadClass[a4paper, oneside]{report}
 \RequirePackage[utf8]{inputenc}

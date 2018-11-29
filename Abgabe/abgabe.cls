@@ -138,6 +138,8 @@
 \newcommand{\Q}{\ensuremath\mathbb{Q}}
 \newcommand{\R}{\ensuremath\mathbb{R}}
 \newcommand{\C}{\ensuremath\mathbb{C}}
+\renewcommand{\P}{\ensuremath\mathcal{P}}%Potenzmenge
+\newcommand{\Pot}{\ensuremath\operatorname{Pot}}%Potenzmenge
 \newcommand{\set}[2]{\ensuremath \left\{ #1 \,\middle|\, #2 \right\}}%Menge
 \newcommand{\simpleset}[1]{\ensuremath \left\{ #1 \right\}}%aufzählende Menge
 \newcommand{\diff}{\mathrm d}
