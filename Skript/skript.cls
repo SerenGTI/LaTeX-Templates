@@ -107,28 +107,28 @@
 %SATZ
 \newenvironment{satz}[1]
 {\begin{mdframed}[style=Satzframe, nobreak=true]
-{\Large\raggedright\bfseries Satz {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #1}\vspace{1em} \newline
+{\large\raggedright\bfseries Satz {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #1}\vspace{0.7em} \newline
 }
 {\end{mdframed}\par}
 
 %LEMMA
 \newenvironment{lemma}[1]
 {\begin{mdframed}[style=Satzframe, nobreak=true]
-{\Large\raggedright\bfseries Lemma {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #1}\vspace{1em} \newline
+{\large\raggedright\bfseries Lemma {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #1}\vspace{0.7em} \newline
 }
 {\end{mdframed}\par}
 
 %KOROLLAR
 \newenvironment{korollar}[1]
 {\begin{mdframed}[style=Satzframe, nobreak=true]
-{\Large\raggedright\bfseries Korollar {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #1}\vspace{1em} \newline
+{\large\raggedright\bfseries Korollar {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #1}\vspace{0.7em} \newline
 }
 {\end{mdframed}\par}
 
 %DEFINITIION
 \newenvironment{definition}[1]
 {\begin{mdframed}[style=Definitionframe, nobreak=true]
-{\Large\raggedright\bfseries Definition {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #1}\vspace{1em} \newline
+{\large\raggedright\bfseries Definition {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #1}\vspace{0.7em} \newline
 }
 {\end{mdframed}\par}
 
