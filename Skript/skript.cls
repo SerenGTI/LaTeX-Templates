@@ -1,9 +1,9 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{skript}[2018/07/14 Simon Koenig Skript-Klasse]
+\ProvidesClass{skript}[2018/12/12 Simon Koenig Report-Class]
 
 \LoadClass[a4paper, oneside]{report}
 \RequirePackage[utf8]{inputenc}
-\RequirePackage[ngerman]{babel}
+\RequirePackage{babel}
 \RequirePackage[top=3cm, bottom=3cm, outer=3cm, inner=3cm, heightrounded]{geometry}
 \RequirePackage{xcolor}
 \RequirePackage{titling}
@@ -43,12 +43,23 @@
 %%OPTIONEN
 
 \definecolor{accent}{rgb}{0.45,0.45,0.45}
+\newcommand{\prtname}{Kapitel}
+\newcommand{\thmname}{Satz}
+\newcommand{\corname}{Korollar}
+\newcommand{\classpagefooter}{\small Seite \texttt{\thepage}\thinspace von\thinspace\texttt{\pageref{LastPage}}}
 %%COLORS
 \DeclareOption{green}{\definecolor{accent}{rgb}{0,0.65,0.37}}
 \DeclareOption{red}{\definecolor{accent}{rgb}{0.75,0.22,0.22}}
 \DeclareOption{orange}{\definecolor{accent}{rgb}{1, 0.6, 0}}
 \DeclareOption{blue}{\definecolor{accent}{rgb}{0, 0.2, 0.6}}
 \DeclareOption{purple}{\definecolor{accent}{rgb}{0.65,0,0.37}}
+
+\DeclareOption{english}{
+  \renewcommand{\prtname}{Part}
+  \renewcommand{\thmname}{Theorem}
+  \renewcommand{\corname}{Corollary}
+  \renewcommand{\classpagefooter}{\small Page \texttt{\thepage}\thinspace of\thinspace\texttt{\pageref{LastPage}}}
+}
 
 \DeclareOption{print}{}%TODO
 %FONTS
@@ -104,33 +115,53 @@
 \@addtoreset{chapter}{part}
 \makeatother
 
-%SATZ
-\newenvironment{satz}[1]
-{\begin{mdframed}[style=Satzframe, nobreak=true]
-{\large\raggedright\bfseries Satz {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #1}\vspace{0.7em} \newline
-}
-{\end{mdframed}\par}
 
-%LEMMA
-\newenvironment{lemma}[1]
-{\begin{mdframed}[style=Satzframe, nobreak=true]
-{\large\raggedright\bfseries Lemma {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #1}\vspace{0.7em} \newline
-}
-{\end{mdframed}\par}
 
-%KOROLLAR
-\newenvironment{korollar}[1]
-{\begin{mdframed}[style=Satzframe, nobreak=true]
-{\large\raggedright\bfseries Korollar {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #1}\vspace{0.7em} \newline
+%AllgmeineBox
+\newenvironment{bnBox}[2]
+{
+  \begin{mdframed}[style=Satzframe, nobreak=true]{
+    \large\raggedright\bfseries #1\ {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #2}
+    \vspace{0.7em} \newline
+}{
+  \end{mdframed}\par
 }
-{\end{mdframed}\par}
+\newenvironment{nBox}[2]
+{
+  \begin{mdframed}[style=Definitionframe, nobreak=true]{
+    \large\raggedright\bfseries #1\ {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #2}
+    \vspace{0.7em} \newline
+}{
+  \end{mdframed}\par
+}
+\newenvironment{bBox}[2]
+{
+  \begin{mdframed}[style=Satzframe, nobreak=true]{
+    \large\raggedright\bfseries #1: \large #2}
+    \vspace{0.7em} \newline
+}{
+  \end{mdframed}\par
+}
+\newenvironment{eBox}[2]
+{
+  \begin{mdframed}[style=Definitionframe, nobreak=true]{
+    \large\raggedright\bfseries #1: \large #2}
+    \vspace{0.7em} \newline
+}{
+  \end{mdframed}\par
+}
 
-%DEFINITIION
-\newenvironment{definition}[1]
-{\begin{mdframed}[style=Definitionframe, nobreak=true]
-{\large\raggedright\bfseries Definition {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #1}\vspace{0.7em} \newline
-}
-{\end{mdframed}\par}
+
+\newenvironment{satz}[1]{\begin{bnBox}{\thmname}{#1}}{\end{bnBox}}
+\newenvironment{theorem}[1]{\begin{bnBox}{\thmname}{#1}}{\end{bnBox}}
+\newenvironment{proposition}[1]{\begin{bnBox}{Proposition}{#1}}{\end{bnBox}}
+\newenvironment{lemma}[1]{\begin{bnBox}{Lemma}{#1}}{\end{bnBox}}
+\newenvironment{korollar}[1]{\begin{bnBox}{\corname}{#1}}{\end{bnBox}}
+
+
+\newenvironment{definition}[1]{\begin{nBox}{Definition}{#1}}{\end{nBox}}
+
+
 
 
 %PART
@@ -141,7 +172,7 @@
 \Huge\centering\scshape\itshape\color{accent}}
 {{\rmfamily\fontsize{300}{40}\selectfont{\arabic{part}}}}
 {0pt}
-{\\ \vfill\Huge\color{darkgray}\normalfont\raggedleft Kapitel \arabic{part}: }
+{\\ \vfill\Huge\color{darkgray}\normalfont\raggedleft \prtname\ \arabic{part}: }
 [{\titlerule[0.8pt]}]
 \titlespacing*{\part}{0pt}{16em}{8em}
 
@@ -194,13 +225,12 @@
 
 
 %%%PAGE HEADER AND FOOTER%%%
-\newcommand{\classpagefooter}{\small Seite \texttt{\thepage}\thinspace von\thinspace\texttt{\pageref{LastPage}}}
 \pagestyle{fancy}
 \cfoot{\classpagefooter}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0pt}
 \rhead{}
-\rfoot{\small Simon \textsc{König} \version}
+\rfoot{\small\theauthor\ \version}
 
 \fancypagestyle{plain}{%
   \fancyhf{}%

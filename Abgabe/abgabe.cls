@@ -56,9 +56,11 @@
 %Titel-Design
 \renewcommand{\maketitle}{
 \begin{center}
-	{\sffamily\Large\bfseries\thetitle\ -- Übungsblatt \thesheetnr}
+	{\sffamily\Large\bfseries\thetitle\\
+
+  \smallskip \large Übungsblatt \thesheetnr}
 \end{center}
-\vspace*{1em}
+\vspace*{0.5em}
 }
 
 \DeclareOption{noex}{
@@ -97,16 +99,21 @@
 	\exerciseheader{#1}
 }{
 	\par
-	\vspace*{1.5em}
-	\begin{center}
-		\includegraphics[width=0.5\textwidth]{ornament.pdf}
-	\end{center}
-	\vspace{2em}
+  \vspace*{1.5em}
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{ornament.pdf}
+  \end{center}
+  \vspace{2em}
 }
 \newenvironment{noornamentex}[1]{
 	\exerciseheader{#1}
 }{
 	\vspace{1em}
+}
+\newenvironment{nex}[1]{
+  \begin{noornamentex}{#1}
+}{
+  \end{noornamentex}
 }
 
 
