@@ -40,13 +40,21 @@
 \setlength{\parindent}{0pt}
 
 
-%%OPTIONEN
+\newlength{\accentbarwidth}
+\setlength{\accentbarwidth}{0.8pt}
 
+
+
+%Variablen, die durch Optionen bearbeitet werden können
 \definecolor{accent}{rgb}{0.45,0.45,0.45}
 \newcommand{\prtname}{Kapitel}
 \newcommand{\thmname}{Satz}
 \newcommand{\corname}{Korollar}
 \newcommand{\classpagefooter}{\small Seite \texttt{\thepage}\thinspace von\thinspace\texttt{\pageref{LastPage}}}
+
+
+%%OPTIONEN
+
 %%COLORS
 \DeclareOption{green}{\definecolor{accent}{rgb}{0,0.65,0.37}}
 \DeclareOption{red}{\definecolor{accent}{rgb}{0.75,0.22,0.22}}
@@ -91,36 +99,48 @@
 	  \vspace*{12em}
 
 	  {\Huge\@title}
-
-	  {\color{accent}\rule{0.7\textwidth}{0.7pt}}
+	  {\color{accent}\rule{0.7\textwidth}{\accentbarwidth}}
 
 	    \vfill
 
-	  {\tiny\color{darkgray}\rule{0.3\textwidth}{0.5pt}
+	  {\tiny\color{darkgray}\rule{0.5\textwidth}{0.5pt}
 	  \vspace{0.5em}
 
-	  \normalsize \@author}
+	  \normalsize \@author\ \version}
 	\end{center}
 }
-\newcommand{\subtitleformat}[1]{\large\vspace{1em}\scshape\color{gray} #1}
-
-
-%SECTIONING UND LAYOUT
-\newlength\sectionnumberspace
-\setlength\sectionnumberspace{3.7em}
-\newcounter{satz}
-\stepcounter{satz}
-
-\makeatletter
-\@addtoreset{chapter}{part}
-\makeatother
+\newcommand{\subtitleformat}[1]{\large\vspace{1.2em}\scshape\color{gray} #1}
 
 
 
-%AllgmeineBox
+
+%SATZ-LAYOUT
+\mdfdefinestyle{Frame}{
+  skipabove=1.2em,
+  roundcorner=3pt,
+  innertopmargin=1.5em,
+  innerbottommargin=\baselineskip,
+  innerrightmargin=1.5em,
+  innerleftmargin=1.5em,
+  backgroundcolor=white!95!gray,
+}
+\mdfdefinestyle{BorderedFrame}{
+  style=Frame,
+  linecolor=accent,
+  outerlinewidth=\accentbarwidth,
+}
+
+%DEFINITION-LAYOUT
+\mdfdefinestyle{RegularFrame}{
+  style=Frame,
+  hidealllines=true,
+}
+
+
+%Allgmeine Box
 \newenvironment{bnBox}[2]
 {
-  \begin{mdframed}[style=Satzframe, nobreak=true]{
+  \begin{mdframed}[style=BorderedFrame, nobreak=true]{
     \large\raggedright\bfseries #1\ {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #2}
     \vspace{0.7em} \newline
 }{
@@ -128,7 +148,7 @@
 }
 \newenvironment{nBox}[2]
 {
-  \begin{mdframed}[style=Definitionframe, nobreak=true]{
+  \begin{mdframed}[style=RegularFrame, nobreak=true]{
     \large\raggedright\bfseries #1\ {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #2}
     \vspace{0.7em} \newline
 }{
@@ -136,7 +156,7 @@
 }
 \newenvironment{bBox}[2]
 {
-  \begin{mdframed}[style=Satzframe, nobreak=true]{
+  \begin{mdframed}[style=BorderedFrame, nobreak=true]{
     \large\raggedright\bfseries #1: \large #2}
     \vspace{0.7em} \newline
 }{
@@ -144,7 +164,7 @@
 }
 \newenvironment{eBox}[2]
 {
-  \begin{mdframed}[style=Definitionframe, nobreak=true]{
+  \begin{mdframed}[style=RegularFrame, nobreak=true]{
     \large\raggedright\bfseries #1: \large #2}
     \vspace{0.7em} \newline
 }{
@@ -164,6 +184,17 @@
 
 
 
+
+%SECTIONING UND LAYOUT
+\newlength\sectionnumberspace
+\setlength\sectionnumberspace{3.7em}
+\newcounter{satz}
+\stepcounter{satz}
+
+\makeatletter
+\@addtoreset{chapter}{part}
+\makeatother
+
 %PART
 \titleformat{\part}[hang]
 {
@@ -173,7 +204,7 @@
 {{\rmfamily\fontsize{300}{40}\selectfont{\arabic{part}}}}
 {0pt}
 {\\ \vfill\Huge\color{darkgray}\normalfont\raggedleft \prtname\ \arabic{part}: }
-[{\titlerule[0.8pt]}]
+[{\titlerule[\accentbarwidth]}]
 \titlespacing*{\part}{0pt}{16em}{8em}
 
 %CHAPTER
@@ -192,7 +223,7 @@
 {\Large}
 \titlespacing*{\section}{0pt}{3em}{1.2em}
 
-%SUBSECTION, DEFINITION
+%SUBSECTION
 \titleformat{\subsection}[hang]
 {\Large\raggedright\bfseries}
 {\llap{\makebox[\sectionnumberspace][l]{\textcolor{accent}{\rmfamily\thesubsection}}\hfill}}
@@ -208,11 +239,12 @@
 {\large\bfseries}
 \titlespacing*{\subsubsection}{0pt}{1em}{0.7em}
 
-\newcommand{\beweis}{\paragraph{Beweis:}}
-\newcommand{\bemerkung}{\paragraph{Bemerkung:}}
-\newcommand{\merkregel}{\paragraph{Merkregel:}}
 
-%BEISPIEL, MERKSATZ, PARAGRAPH
+
+
+
+
+%BEISPIEL, MERKSATZ, PARAGRAPH, ...
 \titleformat{\paragraph}[runin]
 {}
 {}
@@ -221,17 +253,22 @@
 \titlespacing*{\paragraph}{0pt}{0.5em}{1em}
 
 
+\newcommand{\beweis}{\paragraph{Beweis:}}
+\newcommand{\bemerkung}{\paragraph{Bemerkung:}}
+\newcommand{\merkregel}{\paragraph{Merkregel:}}
 
 
 
-%%%PAGE HEADER AND FOOTER%%%
+
+
+%PAGE HEADER AND FOOTER
 \pagestyle{fancy}
 \cfoot{\classpagefooter}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0pt}
 \rhead{}
 \rfoot{\small\theauthor\ \version}
-
+%Plain page layout for chapters
 \fancypagestyle{plain}{%
   \fancyhf{}%
   \fancyfoot[C]{\classpagefooter}%
@@ -240,30 +277,7 @@
 }
 
 
-%SATZ-LAYOUT
-\mdfdefinestyle{Satzframe}{
-  skipabove=1.3em,
-  roundcorner=3pt,
-  innertopmargin=1.7em,
-  innerbottommargin=\baselineskip,
-  innerrightmargin=2em,
-  innerleftmargin=2em,
-  backgroundcolor=white!95!gray,
-  linecolor=accent,
-  outerlinewidth=0.8pt,
-}
 
-%DEFINITION-LAYOUT
-\mdfdefinestyle{Definitionframe}{
-  skipabove=1.3em,
-  roundcorner=3pt,
-  innertopmargin=1.7em,
-  innerbottommargin=\baselineskip,
-  innerrightmargin=2em,
-  innerleftmargin=2em,
-  backgroundcolor=white!95!gray,
-  hidealllines=true,
-}
 
 
 
