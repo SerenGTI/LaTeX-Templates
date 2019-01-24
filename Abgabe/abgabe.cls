@@ -21,6 +21,7 @@
 \RequirePackage{xfrac}
 \RequirePackage{enumitem}
 \RequirePackage{listings}
+\RequirePackage{diagbox}
 \RequirePackage{multicol}
 \RequirePackage{tikz}
 \usetikzlibrary{automata,positioning,calc}
@@ -145,13 +146,16 @@
 \newcommand{\Q}{\ensuremath\mathbb{Q}}
 \newcommand{\R}{\ensuremath\mathbb{R}}
 \newcommand{\C}{\ensuremath\mathbb{C}}
+\renewcommand{\L}{\ensuremath\mathbb{L}}
 \renewcommand{\P}{\ensuremath\mathcal{P}}%Potenzmenge
 \newcommand{\Pot}{\ensuremath\operatorname{Pot}}%Potenzmenge
 \newcommand{\set}[2]{\ensuremath \left\{ #1 \,\middle|\, #2 \right\}}%Menge
 \newcommand{\simpleset}[1]{\ensuremath \left\{ #1 \right\}}%aufzählende Menge
-\newcommand{\diff}{\mathrm d}
 \renewcommand{\vector}[1]{\renewcommand{\arraystretch}{1}\ensuremath\begin{pmatrix} #1 \end{pmatrix}}%Vektor
 \newcommand{\IV}{\ensuremath\stackrel{\mathclap{\text{\tiny{(IV)}}}}{=}}
+\renewcommand{\emptyset}{\ensuremath\varnothing}%Leere Menge mit schönerem Symbol
+\newcommand{\diff}{\ \operatorname{d}\!}%Differentialquotienten d
+\newcommand{\intd}{\diff}% Infinitesimale beim Integral
 
 
 

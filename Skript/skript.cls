@@ -24,6 +24,8 @@
 \RequirePackage[framemethod=TikZ]{mdframed}
 \usetikzlibrary{arrows,intersections,patterns,calc}
 \RequirePackage{xfrac}
+\RequirePackage{diagbox}
+\RequirePackage[resetstyle, thmset=empty]{phfthm}
 \RequirePackage{pgfplots}
 \usepgfplotslibrary{fillbetween}
 
@@ -48,7 +50,7 @@
 %Variablen, die durch Optionen bearbeitet werden können
 \definecolor{accent}{rgb}{0.45,0.45,0.45}
 \newcommand{\prtname}{Kapitel}
-\newcommand{\thmname}{Satz}
+\newcommand{\satzname}{Satz}
 \newcommand{\corname}{Korollar}
 \newcommand{\classpagefooter}{\small Seite \texttt{\thepage}\thinspace von\thinspace\texttt{\pageref{LastPage}}}
 
@@ -64,7 +66,7 @@
 
 \DeclareOption{english}{
   \renewcommand{\prtname}{Part}
-  \renewcommand{\thmname}{Theorem}
+  \renewcommand{\satzname}{Theorem}
   \renewcommand{\corname}{Corollary}
   \renewcommand{\classpagefooter}{\small Page \texttt{\thepage}\thinspace of\thinspace\texttt{\pageref{LastPage}}}
 }
@@ -142,10 +144,12 @@
 {
   \begin{mdframed}[style=BorderedFrame, nobreak=true]{
     \large\raggedright\bfseries #1\ {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #2}
-    \vspace{0.7em} \newline
+    \vspace{0.7em} \newline 
 }{
   \end{mdframed}\par
 }
+
+
 \newenvironment{nBox}[2]
 {
   \begin{mdframed}[style=RegularFrame, nobreak=true]{
@@ -154,42 +158,142 @@
 }{
   \end{mdframed}\par
 }
+
+
+
+
+
 \newenvironment{bBox}[2]
 {
-  \begin{mdframed}[style=BorderedFrame, nobreak=true]{
+  \ifx&#1&
+    \ifx&#2&
+      %Beide Parameter leer
+      \begin{mdframed}[style=BorderedFrame, nobreak=true]{}
+    \else
+      %#1 leer
+      \begin{mdframed}[style=BorderedFrame, nobreak=true]{
+      \large\raggedright\bfseries\large #2}
+      \vspace{0.7em} \newline
+    \fi
+  \else
+    %Beide nicht leer
+    \begin{mdframed}[style=BorderedFrame, nobreak=true]{
     \large\raggedright\bfseries #1: \large #2}
     \vspace{0.7em} \newline
+  \fi
 }{
   \end{mdframed}\par
 }
+
+
 \newenvironment{eBox}[2]
 {
-  \begin{mdframed}[style=RegularFrame, nobreak=true]{
+  \ifx&#1&
+    \ifx&#2&
+      %Beide Parameter leer
+      \begin{mdframed}[style=RegularFrame, nobreak=true]{}
+    \else
+      %#1 leer
+      \begin{mdframed}[style=RegularFrame, nobreak=true]{
+      \large\raggedright\bfseries\large #2}
+      \vspace{0.7em} \newline
+    \fi
+  \else
+    %Beide nicht leer
+    \begin{mdframed}[style=RegularFrame, nobreak=true]{
     \large\raggedright\bfseries #1: \large #2}
     \vspace{0.7em} \newline
+  \fi
 }{
   \end{mdframed}\par
 }
 
+\newcounter{satz}
 
-\newenvironment{satz}[1]{\begin{bnBox}{\thmname}{#1}}{\end{bnBox}}
-\newenvironment{theorem}[1]{\begin{bnBox}{\thmname}{#1}}{\end{bnBox}}
-\newenvironment{proposition}[1]{\begin{bnBox}{Proposition}{#1}}{\end{bnBox}}
-\newenvironment{lemma}[1]{\begin{bnBox}{Lemma}{#1}}{\end{bnBox}}
-\newenvironment{korollar}[1]{\begin{bnBox}{\corname}{#1}}{\end{bnBox}}
+\newcommand{\envheader}{}
+
+\newtheoremstyle{thmstyle}% ⟨name ⟩ 
+{0em}% ⟨Space above ⟩1 
+{0.7em}% ⟨Space below ⟩1
+{}% ⟨Body font ⟩
+{0pt}% ⟨Indent amount ⟩2
+{\large\bfseries}% ⟨Theorem head font⟩
+{:}% ⟨Punctuation after theorem head ⟩
+{.5em}% ⟨Space after theorem head ⟩3
+{\envheader\ \thesection.\thesatz}% ⟨Theorem head spec (can be left empty, meaning ‘normal’)⟩
 
 
-\newenvironment{definition}[1]{\begin{nBox}{Definition}{#1}}{\end{nBox}}
+\phfMakeTheorem[defstar=true,defnostar=true,thmstyle=thmstyle,counter=satz,proofref=false]{theoremBody}{\satzname}
+\phfMakeTheorem[defstar=true,defnostar=true,thmstyle=thmstyle,counter=satz,proofref=false]{propositionBody}{Proposition}
+\phfMakeTheorem[defstar=true,defnostar=true,thmstyle=thmstyle,counter=satz,proofref=false]{definitionBody}{Definition}
+\phfMakeTheorem[defstar=true,defnostar=true,thmstyle=thmstyle,counter=satz,proofref=false]{corBody}{\corname}
+\phfMakeTheorem[defstar=true,defnostar=true,thmstyle=thmstyle,counter=satz,proofref=false]{lemmaBody}{Lemma}
 
 
+\newenvironment{theorem}[1]{
+  \begin{mdframed}[style=BorderedFrame, nobreak=true]{}
+  \renewcommand{\envheader}{\satzname}
+  \begin{theoremBody}{{\large\bfseries #1}
 
+  \vspace*{0.7em}}
+}{
+  \end{theoremBody}
+  \end{mdframed}
+}
+\newenvironment{satz}[1]{\begin{theorem}{#1}}{\end{theorem}}
+
+
+\newenvironment{proposition}[1]{
+  \begin{mdframed}[style=BorderedFrame, nobreak=true]{}
+  \renewcommand{\envheader}{Proposition}
+  \begin{propositionBody}{{\large\bfseries #1}
+
+  \vspace*{0.7em}}
+}{
+  \end{propositionBody}
+  \end{mdframed}
+}
+
+
+\newenvironment{lemma}[1]{
+  \begin{mdframed}[style=BorderedFrame, nobreak=true]{}
+  \renewcommand{\envheader}{Lemma}
+  \begin{lemmaBody}{{\large\bfseries #1}
+
+  \vspace*{0.7em}}
+}{
+  \end{lemmaBody}
+  \end{mdframed}
+}
+
+
+\newenvironment{corollary}[1]{
+  \begin{mdframed}[style=BorderedFrame, nobreak=true]{}
+  \renewcommand{\envheader}{\corname}
+  \begin{lemmaBody}{{\large\bfseries #1}
+
+  \vspace*{0.7em}}
+}{
+  \end{lemmaBody}
+  \end{mdframed}
+}
+\newenvironment{korollar}[1]{\begin{corollary}{#1}}{\end{corollary}}
+
+\newenvironment{definition}[1]{
+  \begin{mdframed}[style=RegularFrame, nobreak=true]{}
+  \renewcommand{\envheader}{Definition}
+  \begin{definitionBody}{{\large\bfseries #1}
+
+  \vspace*{0.7em}}
+}{
+  \end{definitionBody}
+  \end{mdframed}
+}
 
 
 %SECTIONING UND LAYOUT
 \newlength\sectionnumberspace
 \setlength\sectionnumberspace{3.7em}
-\newcounter{satz}
-\stepcounter{satz}
 
 \makeatletter
 \@addtoreset{chapter}{part}
@@ -198,7 +302,7 @@
 %PART
 \titleformat{\part}[hang]
 {
-\setcounter{satz}{1}
+\setcounter{satz}{0}
 \thispagestyle{empty}
 \Huge\centering\scshape\itshape\color{accent}}
 {{\rmfamily\fontsize{300}{40}\selectfont{\arabic{part}}}}
@@ -209,7 +313,7 @@
 
 %CHAPTER
 \titleformat{\chapter}[hang]
-{\setcounter{satz}{1}\Huge\centering\scshape}
+{\setcounter{satz}{0}\Huge\centering\scshape}
 {\color{accent}{\rmfamily\bfseries\thechapter}\huge: }
 {0pt}
 {\huge}
@@ -277,12 +381,11 @@
 }
 
 
+\makeatletter
+\newcommand{\leqnomode}{\tagsleft@true}
+\newcommand{\reqnomode}{\tagsleft@false}
+\makeatother
 
-
-
-
-
-%%%COMMANDS%%%
 \newcommand{\N}{\ensuremath\mathbb{N}}
 \newcommand{\Z}{\ensuremath\mathbb{Z}}
 \newcommand{\Q}{\ensuremath\mathbb{Q}}
@@ -311,10 +414,7 @@
 \newcommand{\set}[2]{\ensuremath \left\{ #1 \,\middle|\, #2 \right\}}%Menge
 \newcommand{\simpleset}[1]{\ensuremath \left\{ #1 \right\}}%aufzählende Menge
 \renewcommand{\emptyset}{\ensuremath\varnothing}%Leere Menge mit schönerem Symbol
-\newcommand{\diff}{\ \operatorname{d}\!}%Differentialquotienten d
-\newcommand{\intd}{\diff}% Infinitesimale beim Integral
+\newcommand{\diff}{\operatorname{d}\!}%Differentialquotienten d
+\newcommand{\intd}{\ \diff}% Infinitesimale beim Integral
+\newcommand{\argmax}{\operatorname{argmax}\,}
 
-\makeatletter
-\newcommand{\leqnomode}{\tagsleft@true}
-\newcommand{\reqnomode}{\tagsleft@false}
-\makeatother
