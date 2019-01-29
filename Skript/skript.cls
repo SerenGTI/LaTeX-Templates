@@ -17,6 +17,7 @@
 \RequirePackage{amssymb}
 \RequirePackage{latexsym}
 \RequirePackage{amsfonts}
+\RequirePackage{makecell}
 
 \RequirePackage[noindentafter]{titlesec}
 \RequirePackage{fancyhdr}
@@ -220,7 +221,7 @@
 {\large\bfseries}% ⟨Theorem head font⟩
 {:}% ⟨Punctuation after theorem head ⟩
 {.5em}% ⟨Space after theorem head ⟩3
-{\envheader\ \thesection.\thesatz}% ⟨Theorem head spec (can be left empty, meaning ‘normal’)⟩
+{\envheader\ \thesatz}% ⟨Theorem head spec (can be left empty, meaning ‘normal’)⟩
 
 
 \phfMakeTheorem[defstar=true,defnostar=true,thmstyle=thmstyle,counter=satz,proofref=false]{theoremBody}{\satzname}
@@ -302,7 +303,7 @@
 %PART
 \titleformat{\part}[hang]
 {
-\setcounter{satz}{0}
+%\setcounter{satz}{0}
 \thispagestyle{empty}
 \Huge\centering\scshape\itshape\color{accent}}
 {{\rmfamily\fontsize{300}{40}\selectfont{\arabic{part}}}}
@@ -313,7 +314,9 @@
 
 %CHAPTER
 \titleformat{\chapter}[hang]
-{\setcounter{satz}{0}\Huge\centering\scshape}
+{
+%\setcounter{satz}{0}
+\Huge\centering\scshape}
 {\color{accent}{\rmfamily\bfseries\thechapter}\huge: }
 {0pt}
 {\huge}
