@@ -1,10 +1,10 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{skript}[2019/01/31 Simon Koenig Skript-Class]
+\ProvidesClass{paper}[2019/01/31 Simon Koenig Skript-Class]
 
-\LoadClass[a4paper, oneside]{report}
+\LoadClass[a4paper, twocolumn, 12pt]{article}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{babel}
-\RequirePackage[top=3cm, bottom=3cm, outer=3cm, inner=3cm, heightrounded]{geometry}
+\RequirePackage[top=2.6cm, bottom=3.3cm, inner=3cm, outer=3cm, heightrounded, twocolumn]{geometry}
 \RequirePackage{xcolor}
 \RequirePackage{titling}
 \RequirePackage[pdftex]{hyperref}
@@ -13,11 +13,12 @@
 
 \RequirePackage{multicol}
 \RequirePackage{wrapfig}
-\RequirePackage[fleqn]{mathtools}
+\RequirePackage{mathtools}
 \RequirePackage{amssymb}
 \RequirePackage{latexsym}
 \RequirePackage{amsfonts}
 \RequirePackage{makecell}
+\RequirePackage{setspace}
 
 \RequirePackage[noindentafter]{titlesec}
 \RequirePackage{fancyhdr}
@@ -32,15 +33,24 @@
 
 
 
-\RequirePackage{lmodern}
-\RequirePackage{libertine}
-\RequirePackage[libertine]{newtxmath}
-\RequirePackage{courier}
+
+
+%Schriftfamilien
+\RequirePackage{lmodern}%rm und sf
+%\RequirePackage{roboto}
+\RequirePackage{ascii}%tt
+\RequirePackage{newtxmath}%math
 \RequirePackage[T1]{fontenc}
-\renewcommand{\familydefault}{\sfdefault}
+
+% \RequirePackage{lmodern}
+% \RequirePackage{libertine}
+% \RequirePackage[libertine]{newtxmath}
+% \RequirePackage{courier}
+% \RequirePackage[T1]{fontenc}
+% \renewcommand{\familydefault}{\sfdefault}
 
 
-\setlength{\parindent}{0pt}
+%\setlength{\parindent}{3pt}
 
 
 \newlength{\accentbarwidth}
@@ -59,14 +69,7 @@
 %%OPTIONEN
 
 %%COLORS
-\DeclareOption{green}{\definecolor{accent}{rgb}{0,0.65,0.37}}
-\DeclareOption{red}{\definecolor{accent}{rgb}{0.75,0.22,0.22}}
-\DeclareOption{orange}{\definecolor{accent}{rgb}{1, 0.6, 0}}
-\DeclareOption{blue}{\definecolor{accent}{rgb}{0, 0.2, 0.6}}
-\DeclareOption{purple}{\definecolor{accent}{rgb}{0.65,0,0.37}}
-
 \DeclareOption{english}{
-  \renewcommand{\prtname}{Part}
   \renewcommand{\satzname}{Theorem}
   \renewcommand{\corname}{Corollary}
   \renewcommand{\classpagefooter}{\small Page \texttt{\thepage}\thinspace of\thinspace\texttt{\pageref{LastPage}}}
@@ -76,7 +79,7 @@
 %FONTS
 \DeclareOption{serif}{\renewcommand{\familydefault}{\rmdefault}}
 
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
 
 
@@ -84,47 +87,45 @@
 \mathcode`\*="8000% Sterne durch Malpunkte ersetzen
 {\catcode`\*\active\gdef*{\cdot}}
 
-%Sonstige Farben
-\definecolor{green}{rgb}{0.2,0.8,0.2}
+
 
 %Version
 \newcommand{\version}{0}
 
 
 
+
+\setlength{\columnsep}{2\parindent}
 %TITEL
 \renewcommand{\maketitle}{
-
-  \medskip
 	\thispagestyle{empty}
-	\begin{center}
+	%\begin{center}
+  \twocolumn[{\raggedright
 
-	  \vspace*{12em}
+    {\setstretch{0.7}\Huge\@title\par}
 
-	  {\Huge\@title}
-	  {\color{accent}\rule{0.7\textwidth}{\accentbarwidth}}
+    {\rule{0.618\textwidth}{0.2pt}}
+    \vspace{0.2em}
 
-	    \vfill
-
-	  {\tiny\color{darkgray}\rule{0.5\textwidth}{0.5pt}
-	  \vspace{0.5em}
-
-	  \normalsize \@author\ \version}
-	\end{center}
+    {\sffamily\@author\ \version}%}
+  %\end{center}
+  \vspace{2em}
+  }]
+  
 }
-\newcommand{\subtitleformat}[1]{\large\vspace{1.2em}\scshape\color{gray} #1}
 
 
+\raggedbottom
 
 
 %SATZ-LAYOUT
 \mdfdefinestyle{Frame}{
   skipabove=1.2em,
   roundcorner=3pt,
-  innertopmargin=1.5em,
-  innerbottommargin=\baselineskip,
-  innerrightmargin=1.5em,
-  innerleftmargin=1.5em,
+  innertopmargin=0.2em,
+  innerbottommargin=0.2em,
+  innerrightmargin=0.2em,
+  innerleftmargin=0.2em,
   backgroundcolor=white!95!gray,
 }
 \mdfdefinestyle{BorderedFrame}{
@@ -144,7 +145,7 @@
 \newenvironment{bnBox}[2]
 {
   \begin{mdframed}[style=BorderedFrame, nobreak=true]{
-    \large\raggedright\bfseries #1\ {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #2}
+    \large\raggedright\bfseries #1\ {\rmfamily\thechapter}: \large #2}
     \vspace{0.7em} \newline 
 }{
   \end{mdframed}\par
@@ -154,7 +155,7 @@
 \newenvironment{nBox}[2]
 {
   \begin{mdframed}[style=RegularFrame, nobreak=true]{
-    \large\raggedright\bfseries #1\ {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #2}
+    \large\raggedright\bfseries #1\ {\rmfamily}: \large #2}
     \vspace{0.7em} \newline
 }{
   \end{mdframed}\par
@@ -209,7 +210,7 @@
   \end{mdframed}\par
 }
 
-\newcounter{satz}
+
 
 \newcommand{\envheader}{}
 
@@ -224,146 +225,52 @@
 {\envheader\ \thesatz}% ⟨Theorem head spec (can be left empty, meaning ‘normal’)⟩
 
 
-\phfMakeTheorem[defstar=true,defnostar=true,thmstyle=thmstyle,counter=satz,proofref=false]{theoremBody}{\satzname}
-\phfMakeTheorem[defstar=true,defnostar=true,thmstyle=thmstyle,counter=satz,proofref=false]{propositionBody}{Proposition}
-\phfMakeTheorem[defstar=true,defnostar=true,thmstyle=thmstyle,counter=satz,proofref=false]{definitionBody}{Definition}
-\phfMakeTheorem[defstar=true,defnostar=true,thmstyle=thmstyle,counter=satz,proofref=false]{corBody}{\corname}
-\phfMakeTheorem[defstar=true,defnostar=true,thmstyle=thmstyle,counter=satz,proofref=false]{lemmaBody}{Lemma}
 
-
-
-\newenvironment{theorem}[1]{
-  \begin{mdframed}[style=BorderedFrame, nobreak=true]{}
-  \renewcommand{\envheader}{\satzname}
-  \begin{theoremBody}{{\large\bfseries #1}
-
-  \vspace*{0.7em}}
-}{
-  \end{theoremBody}
-  \end{mdframed}
-}
-\newenvironment{satz}[1]{\begin{theorem}{#1}}{\end{theorem}}
-
-
-\newenvironment{proposition}[1]{
-  \begin{mdframed}[style=BorderedFrame, nobreak=true]{}
-  \renewcommand{\envheader}{Proposition}
-  \begin{propositionBody}{{\large\bfseries #1}
-
-  \vspace*{0.7em}}
-}{
-  \end{propositionBody}
-  \end{mdframed}
-}
-
-
-\newenvironment{lemma}[1]{
-  \begin{mdframed}[style=BorderedFrame, nobreak=true]{}
-  \renewcommand{\envheader}{Lemma}
-  \begin{lemmaBody}{{\large\bfseries #1}
-
-  \vspace*{0.7em}}
-}{
-  \end{lemmaBody}
-  \end{mdframed}
-}
-
-
-\newenvironment{corollary}[1]{
-  \begin{mdframed}[style=BorderedFrame, nobreak=true]{}
-  \renewcommand{\envheader}{\corname}
-  \begin{lemmaBody}{{\large\bfseries #1}
-
-  \vspace*{0.7em}}
-}{
-  \end{lemmaBody}
-  \end{mdframed}
-}
-\newenvironment{korollar}[1]{\begin{corollary}{#1}}{\end{corollary}}
-
-\newenvironment{definition}[1]{
-  \begin{mdframed}[style=RegularFrame, nobreak=true]{}
-  \renewcommand{\envheader}{Definition}
-  \begin{definitionBody}{{\large\bfseries #1}
-
-  \vspace*{0.7em}}
-}{
-  \end{definitionBody}
-  \end{mdframed}
-}
-
+\newtheorem{theorem}{\satzname}
+\newtheorem{beispiel}{Beispiel}
+\newtheorem{lemma}{Lemma}
+\newtheorem{korollar}{\corname}
+\newtheorem{definition}{Definition}
 
 %SECTIONING UND LAYOUT
-\newlength\sectionnumberspace
-\setlength\sectionnumberspace{3.7em}
-
-\makeatletter
-\@addtoreset{chapter}{part}
-\makeatother
-
-%PART
-\titleformat{\part}[hang]
-{
-%\setcounter{satz}{0}
-\thispagestyle{empty}
-\Huge\centering\scshape\itshape\color{accent}}
-{{\rmfamily\fontsize{300}{40}\selectfont{\arabic{part}}}}
-{0pt}
-{\\ \vfill\Huge\color{darkgray}\normalfont\raggedleft \prtname\ \arabic{part}: }
-[{\titlerule[\accentbarwidth]}]
-\titlespacing*{\part}{0pt}{16em}{8em}
-
-%CHAPTER
-\titleformat{\chapter}[hang]
-{
-%\setcounter{satz}{0}
-\Huge\centering\scshape}
-{\color{accent}{\rmfamily\bfseries\thechapter}\huge: }
-{0pt}
-{\huge}
-\titlespacing*{\chapter}{0pt}{0pt}{7em}
 
 %SECTION
-\titleformat{\section}[hang]
-{\LARGE\raggedright\bfseries}
-{\llap{\makebox[\sectionnumberspace][l]{\textcolor{accent}{\rmfamily\thesection}}\hfill}}
-{0pt}
-{\Large}
-\titlespacing*{\section}{0pt}{3em}{1.2em}
+\titleformat{\section}
+{\Large\sffamily}%Format
+{\thesection}%Label
+{1em}%Sep
+{}%Before
+{}%After
+\titlespacing*{\section}{0pt}{\baselineskip}{0.3em}
 
-%SUBSECTION
-\titleformat{\subsection}[hang]
-{\Large\raggedright\bfseries}
-{\llap{\makebox[\sectionnumberspace][l]{\textcolor{accent}{\rmfamily\thesubsection}}\hfill}}
-{0em}
-{\large}
-\titlespacing*{\subsection}{0pt}{1.6em}{1em}
+% %SUBSECTION
+\titleformat{\subsection}
+{\large\sffamily}%Format
+{\thesubsection}%Label
+{1em}%Sep
+{}%Before
+{}%After
+\titlespacing*{\subsection}{0pt}{\baselineskip}{0.3em}
 
-%SUBSUBSECTION
-\titleformat{\subsubsection}[hang]
-{}
-{}
-{3pt}
-{\large\bfseries}
-\titlespacing*{\subsubsection}{0pt}{1em}{0.7em}
+% %SUBSUBSECTION
+\titleformat{\subsubsection}
+{\normalfont\normalsize\sffamily}%Format
+{\thesubsubsection}%Label
+{1em}%Sep
+{}%Before
+{}%After
+\titlespacing*{\subsubsection}{0pt}{\baselineskip}{0.3em}
 
-
-
-
-
-
-%BEISPIEL, MERKSATZ, PARAGRAPH, ...
+%PARAGRAPH
 \titleformat{\paragraph}[runin]
+{\itshape\sffamily}
 {}
 {}
-{3pt}
-{\scshape\bfseries}
-\titlespacing*{\paragraph}{0pt}{0.5em}{1em}
+{}
+{}
+\titlespacing*{\paragraph}{\parindent}{0pt}{\parindent}
 
 
-\newcommand{\beweis}{\paragraph{Beweis:}}
-\newcommand{\bemerkung}{\paragraph{Bemerkung:}}
-\newcommand{\merkregel}{\paragraph{Merkregel:}}
 
 
 
@@ -371,18 +278,31 @@
 
 %PAGE HEADER AND FOOTER
 \pagestyle{fancy}
-\cfoot{\classpagefooter}
-\renewcommand{\headrulewidth}{0.4pt}
+% \cfoot{\classpagefooter}
+\renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
-\rhead{}
-\rfoot{\small\theauthor\ \version}
-%Plain page layout for chapters
-\fancypagestyle{plain}{%
-  \fancyhf{}%
-  \fancyfoot[C]{\classpagefooter}%
-  \renewcommand{\headrulewidth}{0pt}
-  \renewcommand{\footrulewidth}{0pt}
-}
+% \lhead{}
+% \chead{}
+% \rhead{}
+% \rfoot{\small\theauthor\ \version}
+
+
+
+% \fancyhead{}
+% \fancyhead[L]{\ifthenelse{\isodd{\value{page}}}{\leftmark}{\rightmark}}
+% \fancyhead[R]{\thepage}
+% \renewcommand{\headrulewidth}{0pt}
+% \fancyfoot{}
+
+
+\fancyhead[LE]{\bfseries\sffamily\thepage}
+\fancyhead[RE]{}%{\rightmark}%Für Sectionname
+\fancyhead[LO]{}
+\fancyhead[RO]{\bfseries\sffamily\thepage}
+\cfoot{}
+\pagestyle{fancy}
+
+
 
 
 \makeatletter
