@@ -1,8 +1,8 @@
-\documentclass[red, ngerman]{skript}
+\documentclass[red, english]{skript}
 
 \author{Martina \textsc{Musterfrau}}
-\title{Mustermodul 1 \& 2 \\\subtitleformat{Skript zum Mustermodul Dinge Bla}}
-\renewcommand{\version}{1.0}
+\title{Example file \\ \subtitleformat{to the Skript class by Simon König}}
+\renewcommand{\version}{Version 190419}
 
 \begin{document}
 \maketitle
@@ -13,44 +13,45 @@
 \chapter{Chapter}
 \section{Section}
 \subsection{Subsection}
-\begin{satz}{Satzumgebung}
-	Dies ist ein Satz
-\end{satz}
-\clearpage
-\begin{beweis}
-	Beweise
-\end{beweis}
-
-\begin{definition}{Definitionsumgebung}
-	Dies ist eine Definition, selbsterklärend eigentlich
-\end{definition}
-\begin{satz}{Theorem/Satz}
-	Dies ist ein Theorem, selbsterklärend eigentlich
-\end{satz}
-\begin{theorem}{Theorem/Satz}
-	Dies ist ein Satz in der theorem-env, selbsterklärend eigentlich
-\end{theorem}
-\begin{proposition}{Proposition}
-	Dies ist eine Proposition, selbsterklärend eigentlich
-\end{proposition}
-
-\begin{eBox}{Dinge}{Kein Rahmen, Keine Nummer}
-	Dies ist eine Definition, selbsterklärend eigentlich
-\end{eBox}
-\begin{bBox}{Dinge}{Keine Nummer}
-	Dies ist eine Definition, selbsterklärend eigentlich
-\end{bBox}
-\begin{nBox}{Dinge}{Kein Rahmen}
-	Dies ist eine Definition, selbsterklärend eigentlich
-\end{nBox}
-\begin{bnBox}{Dinge}{Rahmen und Nummer}
-	Dies ist eine Definition, selbsterklärend eigentlich
-\end{bnBox}
 \paragraph{Paragraph}
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+\begin{definition}{Definition}\label{def}
+	\begin{verbatim}
+		\begin{definition}{<name>}
+			...
+		\end{definition}
+	\end{verbatim}
+\end{definition}
+
+
+\begin{theorem}{Theorem or Satz}%satz also possible
+	\begin{verbatim}
+		\begin{theorem}{<name>}
+			...
+		\end{theorem}
+	\end{verbatim}
+	Also possible are the environments \texttt{lemma}, \texttt{proposition} and \texttt{corollary} with the same visuals as this one.
+
+	This bordered box with a numbered customizable heading can also be achieved using the next box.
+\end{theorem}
+
+\begin{bnBox}{First}{Second}
+	\begin{verbatim}
+		\begin{bnBox}{First}{Second}
+			...
+		\end{bnBox}
+	\end{verbatim}
+	The box \texttt{nBox} creates a box with numbered heading but without the border. \texttt{eBox} ($\rightarrow$ emptyBox) neither has a border nor a numbered heading.
+\end{bnBox}
+
+All theorems, lemmas, etc can be referenced like so \autoref{def}.
+
+Possible class options are
+\begin{itemize}
+	\item \texttt{green, red, orange, blue, purple} for the accent color. Can be customized by setting the color accent in the preamble.
+	\item \texttt{ngerman} or \texttt{english} for language. English may not work as expected.
+\end{itemize}
+Predefined commands are \texttt{\textbackslash version} for the text in the lower right corner on non-chapter papes (e.g. your name + a version of the current file). This must be renewed with your desired text.
+Also the \texttt{\textbackslash subtitleformat\{...\}} is used for the format of the subtitle on the title page.
+
 \end{document}

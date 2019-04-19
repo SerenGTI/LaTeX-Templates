@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{skript}[2019/01/31 Simon Koenig Skript-Class]
+\ProvidesClass{skript}[2019/04/19 Simon Koenig Skript-Class]
 
 \LoadClass[a4paper, oneside]{report}
 \RequirePackage[utf8]{inputenc}
@@ -31,7 +31,7 @@
 \usepgfplotslibrary{fillbetween}
 
 
-
+%Font Families
 \RequirePackage{lmodern}
 \RequirePackage{libertine}
 \RequirePackage[libertine]{newtxmath}
@@ -40,31 +40,31 @@
 \renewcommand{\familydefault}{\sfdefault}
 
 
+%no indent for new pars
 \setlength{\parindent}{0pt}
 
-
+%width of accent lines under the heading and surrounding the boxes for definitions etc
 \newlength{\accentbarwidth}
 \setlength{\accentbarwidth}{0.8pt}
 
-
-
-%Variablen, die durch Optionen bearbeitet werden können
+%accent color
 \definecolor{accent}{rgb}{0.45,0.45,0.45}
-\newcommand{\prtname}{Kapitel}
-\newcommand{\satzname}{Satz}
-\newcommand{\corname}{Korollar}
-\newcommand{\classpagefooter}{\small Seite \texttt{\thepage}\thinspace von\thinspace\texttt{\pageref{LastPage}}}
-
-
-%%OPTIONEN
-
-%%COLORS
+%predefined accent colors
 \DeclareOption{green}{\definecolor{accent}{rgb}{0,0.65,0.37}}
 \DeclareOption{red}{\definecolor{accent}{rgb}{0.75,0.22,0.22}}
 \DeclareOption{orange}{\definecolor{accent}{rgb}{1, 0.6, 0}}
 \DeclareOption{blue}{\definecolor{accent}{rgb}{0, 0.2, 0.6}}
 \DeclareOption{purple}{\definecolor{accent}{rgb}{0.65,0,0.37}}
 
+
+
+%misc variables for language support
+\newcommand{\prtname}{Kapitel}
+\newcommand{\satzname}{Satz}
+\newcommand{\corname}{Korollar}
+\newcommand{\classpagefooter}{\small Seite \texttt{\thepage}\thinspace von\thinspace\texttt{\pageref{LastPage}}}
+
+%language support
 \DeclareOption{english}{
   \renewcommand{\prtname}{Part}
   \renewcommand{\satzname}{Theorem}
@@ -72,27 +72,34 @@
   \renewcommand{\classpagefooter}{\small Page \texttt{\thepage}\thinspace of\thinspace\texttt{\pageref{LastPage}}}
 }
 
+
 \DeclareOption{print}{}%TODO
-%FONTS
+
+
+%change to serif fonts with class option
 \DeclareOption{serif}{\renewcommand{\familydefault}{\rmdefault}}
 
+%% END OPTIONS
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}}
 \ProcessOptions\relax
 
 
-%DEFINITIONEN
-\mathcode`\*="8000% Sterne durch Malpunkte ersetzen
+
+
+
+%misc
+\mathcode`\*="8000%replace every * with \cdot
 {\catcode`\*\active\gdef*{\cdot}}
 
-%Sonstige Farben
+
+
+%redefine green because the original is ugly.
 \definecolor{green}{rgb}{0.2,0.8,0.2}
 
-%Version
+%can be used
 \newcommand{\version}{0}
 
-
-
-%TITEL
+%title page
 \renewcommand{\maketitle}{
 
   \medskip
@@ -116,8 +123,7 @@
 
 
 
-
-%SATZ-LAYOUT
+%main frame style, only gray background and spacing
 \mdfdefinestyle{Frame}{
   skipabove=1.2em,
   roundcorner=3pt,
@@ -127,30 +133,31 @@
   innerleftmargin=1.5em,
   backgroundcolor=white!95!gray,
 }
+%frame style with border
 \mdfdefinestyle{BorderedFrame}{
   style=Frame,
   linecolor=accent,
   outerlinewidth=\accentbarwidth,
 }
-
-%DEFINITION-LAYOUT
+%
 \mdfdefinestyle{RegularFrame}{
   style=Frame,
   hidealllines=true,
 }
 
 
-%Allgmeine Box
+%useable boxes
+%bordered with a number
 \newenvironment{bnBox}[2]
 {
   \begin{mdframed}[style=BorderedFrame, nobreak=true]{
     \large\raggedright\bfseries #1\ {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #2}
-    \vspace{0.7em} \newline 
+    %\vspace{0.7em}%
+    %\newline%
 }{
   \end{mdframed}\par
 }
-
-
+%only number
 \newenvironment{nBox}[2]
 {
   \begin{mdframed}[style=RegularFrame, nobreak=true]{
@@ -159,11 +166,7 @@
 }{
   \end{mdframed}\par
 }
-
-
-
-
-
+%only a border
 \newenvironment{bBox}[2]
 {
   \ifx&#1&
@@ -185,8 +188,7 @@
 }{
   \end{mdframed}\par
 }
-
-
+%no special things, only background
 \newenvironment{eBox}[2]
 {
   \ifx&#1&
@@ -209,19 +211,20 @@
   \end{mdframed}\par
 }
 
+
 \newcounter{satz}
 
 \newcommand{\envheader}{}
 
-\newtheoremstyle{thmstyle}% ⟨name ⟩ 
-{0em}% ⟨Space above ⟩1 
-{0.7em}% ⟨Space below ⟩1
-{}% ⟨Body font ⟩
-{0pt}% ⟨Indent amount ⟩2
-{\large\bfseries}% ⟨Theorem head font⟩
-{:}% ⟨Punctuation after theorem head ⟩
-{.5em}% ⟨Space after theorem head ⟩3
-{\envheader\ \thesatz}% ⟨Theorem head spec (can be left empty, meaning ‘normal’)⟩
+\newtheoremstyle{thmstyle}
+{0em}%Space above
+{0.7em}%Space below
+{}%Body font
+{0pt}%Indent amount
+{\large\bfseries}%Theorem head font
+{:}%Punctuation after theorem head
+{.5em}%Space after theorem head
+{\envheader\ \thesatz}%Theorem head spec (can be left empty, meaning ‘normal’)
 
 
 \phfMakeTheorem[defstar=true,defnostar=true,thmstyle=thmstyle,counter=satz,proofref=false]{theoremBody}{\satzname}
@@ -293,7 +296,7 @@
 }
 
 
-%SECTIONING UND LAYOUT
+%Sections and layout
 \newlength\sectionnumberspace
 \setlength\sectionnumberspace{3.7em}
 
@@ -301,10 +304,9 @@
 \@addtoreset{chapter}{part}
 \makeatother
 
-%PART
+
 \titleformat{\part}[hang]
 {
-%\setcounter{satz}{0}
 \thispagestyle{empty}
 \Huge\centering\scshape\itshape\color{accent}}
 {{\rmfamily\fontsize{300}{40}\selectfont{\arabic{part}}}}
@@ -313,17 +315,16 @@
 [{\titlerule[\accentbarwidth]}]
 \titlespacing*{\part}{0pt}{16em}{8em}
 
-%CHAPTER
+
 \titleformat{\chapter}[hang]
 {
-%\setcounter{satz}{0}
 \Huge\centering\scshape}
 {\color{accent}{\rmfamily\bfseries\thechapter}\huge: }
 {0pt}
 {\huge}
 \titlespacing*{\chapter}{0pt}{0pt}{7em}
 
-%SECTION
+
 \titleformat{\section}[hang]
 {\LARGE\raggedright\bfseries}
 {\llap{\makebox[\sectionnumberspace][l]{\textcolor{accent}{\rmfamily\thesection}}\hfill}}
@@ -331,7 +332,7 @@
 {\Large}
 \titlespacing*{\section}{0pt}{3em}{1.2em}
 
-%SUBSECTION
+
 \titleformat{\subsection}[hang]
 {\Large\raggedright\bfseries}
 {\llap{\makebox[\sectionnumberspace][l]{\textcolor{accent}{\rmfamily\thesubsection}}\hfill}}
@@ -339,7 +340,7 @@
 {\large}
 \titlespacing*{\subsection}{0pt}{1.6em}{1em}
 
-%SUBSUBSECTION
+
 \titleformat{\subsubsection}[hang]
 {}
 {}
@@ -350,9 +351,6 @@
 
 
 
-
-
-%BEISPIEL, MERKSATZ, PARAGRAPH, ...
 \titleformat{\paragraph}[runin]
 {}
 {}
@@ -369,7 +367,7 @@
 
 
 
-%PAGE HEADER AND FOOTER
+%page header and footer
 \pagestyle{fancy}
 \cfoot{\classpagefooter}
 \renewcommand{\headrulewidth}{0.4pt}
