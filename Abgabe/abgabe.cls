@@ -14,6 +14,7 @@
 \RequirePackage{hyperref}
 \RequirePackage{lastpage}
 \RequirePackage{fancyhdr}
+\RequirePackage{datetime}
 \RequirePackage{mathtools}
 \RequirePackage{amsmath}
 \RequirePackage{titling}
@@ -156,6 +157,7 @@
 \renewcommand{\emptyset}{\ensuremath\varnothing}%Leere Menge mit schönerem Symbol
 \newcommand{\diff}{\ \operatorname{d}\!}%Differentialquotienten d
 \newcommand{\intd}{\diff}% Infinitesimale beim Integral
+\newcommand{\ematrix}[2]{\renewcommand{\arraystretch}{1}\ensuremath\left(\begin{array}{@{}#1@{}}#2\end{array}\right)}
 
 
 
@@ -189,7 +191,8 @@
   breaklines=true,
   captionpos=b,
   deletekeywords={},
-  escapeinside={\%*}{*)},
+  escapeinside={(*}{*)},
+  escapemath=true,
   extendedchars=true,
   frame=lines,
   xleftmargin=10pt,
