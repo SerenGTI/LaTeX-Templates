@@ -151,7 +151,7 @@
 \newenvironment{bnBox}[2]
 {
   \begin{mdframed}[style=BorderedFrame, nobreak=true]{
-    \large\raggedright\bfseries #1\ {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #2}
+    \large\raggedright\bfseries #1\ {\rmfamily\thesatz}\stepcounter{satz}: \large #2}
     %\vspace{0.7em}%
     %\newline%
 }{
@@ -161,7 +161,7 @@
 \newenvironment{nBox}[2]
 {
   \begin{mdframed}[style=RegularFrame, nobreak=true]{
-    \large\raggedright\bfseries #1\ {\rmfamily\thechapter.\thesatz}\stepcounter{satz}: \large #2}
+    \large\raggedright\bfseries #1\ {\rmfamily\thesatz}\stepcounter{satz}: \large #2}
     \vspace{0.7em} \newline
 }{
   \end{mdframed}\par
