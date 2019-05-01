@@ -1,10 +1,10 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{paper}[2019/01/31 Simon Koenig Skript-Class]
+\ProvidesClass{paper}[2019/04/19 Simon Koenig Paper-Class]
 
-\LoadClass[a4paper, twocolumn, 12pt]{article}
+\LoadClass[a4paper, 9pt, twocolumn]{extarticle}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{babel}
-\RequirePackage[top=2.6cm, bottom=3.3cm, inner=3cm, outer=3cm, heightrounded, twocolumn]{geometry}
+\RequirePackage[top=2.6cm, bottom=3cm, inner=2.5cm, outer=2.5cm, heightrounded, twocolumn]{geometry}
 \RequirePackage{xcolor}
 \RequirePackage{titling}
 \RequirePackage[pdftex]{hyperref}
@@ -15,10 +15,12 @@
 \RequirePackage{wrapfig}
 \RequirePackage{mathtools}
 \RequirePackage{amssymb}
+\RequirePackage{amsthm}
 \RequirePackage{latexsym}
 \RequirePackage{amsfonts}
 \RequirePackage{makecell}
 \RequirePackage{setspace}
+\RequirePackage{listings}
 
 \RequirePackage[noindentafter]{titlesec}
 \RequirePackage{fancyhdr}
@@ -37,29 +39,14 @@
 
 %Schriftfamilien
 \RequirePackage{lmodern}%rm und sf
-%\RequirePackage{roboto}
 \RequirePackage{ascii}%tt
-\RequirePackage{newtxmath}%math
+%\RequirePackage{newtxmath}%math
 \RequirePackage[T1]{fontenc}
-
-% \RequirePackage{lmodern}
-% \RequirePackage{libertine}
-% \RequirePackage[libertine]{newtxmath}
-% \RequirePackage{courier}
-% \RequirePackage[T1]{fontenc}
-% \renewcommand{\familydefault}{\sfdefault}
 
 
 %\setlength{\parindent}{3pt}
 
-
-\newlength{\accentbarwidth}
-\setlength{\accentbarwidth}{0.8pt}
-
-
-
 %Variablen, die durch Optionen bearbeitet werden können
-\definecolor{accent}{rgb}{0.45,0.45,0.45}
 \newcommand{\prtname}{Kapitel}
 \newcommand{\satzname}{Satz}
 \newcommand{\corname}{Korollar}
@@ -75,9 +62,6 @@
   \renewcommand{\classpagefooter}{\small Page \texttt{\thepage}\thinspace of\thinspace\texttt{\pageref{LastPage}}}
 }
 
-\DeclareOption{print}{}%TODO
-%FONTS
-\DeclareOption{serif}{\renewcommand{\familydefault}{\rmdefault}}
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions\relax
@@ -90,125 +74,32 @@
 
 
 %Version
-\newcommand{\version}{0}
+\newcommand{\version}{}
 
+%Spacing
+\setlength{\columnsep}{3\parindent}
+\renewcommand{\baselinestretch}{1.3}
 
-
-
-\setlength{\columnsep}{2\parindent}
 %TITEL
 \renewcommand{\maketitle}{
-	\thispagestyle{empty}
-	%\begin{center}
-  \twocolumn[{\raggedright
+	\twocolumn[\begin{center}
 
-    {\setstretch{0.7}\Huge\@title\par}
+    \vspace*{3em}
+    {\setstretch{1}\huge\@title\par}
 
     {\rule{0.618\textwidth}{0.2pt}}
     \vspace{0.2em}
 
-    {\sffamily\@author\ \version}%}
-  %\end{center}
-  \vspace{2em}
-  }]
-  
+    {\@author\\\@date\ \version}
+
+    {\rule{0.21\textwidth}{0.2pt}}
+  \end{center}
+  \vspace*{4em}]
 }
 
 
 \raggedbottom
 
-
-%SATZ-LAYOUT
-\mdfdefinestyle{Frame}{
-  skipabove=1.2em,
-  roundcorner=3pt,
-  innertopmargin=0.2em,
-  innerbottommargin=0.2em,
-  innerrightmargin=0.2em,
-  innerleftmargin=0.2em,
-  backgroundcolor=white!95!gray,
-}
-\mdfdefinestyle{BorderedFrame}{
-  style=Frame,
-  linecolor=accent,
-  outerlinewidth=\accentbarwidth,
-}
-
-%DEFINITION-LAYOUT
-\mdfdefinestyle{RegularFrame}{
-  style=Frame,
-  hidealllines=true,
-}
-
-
-%Allgmeine Box
-\newenvironment{bnBox}[2]
-{
-  \begin{mdframed}[style=BorderedFrame, nobreak=true]{
-    \large\raggedright\bfseries #1\ {\rmfamily\thechapter}: \large #2}
-    \vspace{0.7em} \newline 
-}{
-  \end{mdframed}\par
-}
-
-
-\newenvironment{nBox}[2]
-{
-  \begin{mdframed}[style=RegularFrame, nobreak=true]{
-    \large\raggedright\bfseries #1\ {\rmfamily}: \large #2}
-    \vspace{0.7em} \newline
-}{
-  \end{mdframed}\par
-}
-
-
-
-
-
-\newenvironment{bBox}[2]
-{
-  \ifx&#1&
-    \ifx&#2&
-      %Beide Parameter leer
-      \begin{mdframed}[style=BorderedFrame, nobreak=true]{}
-    \else
-      %#1 leer
-      \begin{mdframed}[style=BorderedFrame, nobreak=true]{
-      \large\raggedright\bfseries\large #2}
-      \vspace{0.7em} \newline
-    \fi
-  \else
-    %Beide nicht leer
-    \begin{mdframed}[style=BorderedFrame, nobreak=true]{
-    \large\raggedright\bfseries #1: \large #2}
-    \vspace{0.7em} \newline
-  \fi
-}{
-  \end{mdframed}\par
-}
-
-
-\newenvironment{eBox}[2]
-{
-  \ifx&#1&
-    \ifx&#2&
-      %Beide Parameter leer
-      \begin{mdframed}[style=RegularFrame, nobreak=true]{}
-    \else
-      %#1 leer
-      \begin{mdframed}[style=RegularFrame, nobreak=true]{
-      \large\raggedright\bfseries\large #2}
-      \vspace{0.7em} \newline
-    \fi
-  \else
-    %Beide nicht leer
-    \begin{mdframed}[style=RegularFrame, nobreak=true]{
-    \large\raggedright\bfseries #1: \large #2}
-    \vspace{0.7em} \newline
-  \fi
-}{
-  \end{mdframed}\par
-}
 
 
 
@@ -225,7 +116,7 @@
 {\envheader\ \thesatz}% ⟨Theorem head spec (can be left empty, meaning ‘normal’)⟩
 
 
-
+%\theoremstyle{thmstyle}
 \newtheorem{theorem}{\satzname}
 \newtheorem{beispiel}{Beispiel}
 \newtheorem{lemma}{Lemma}
@@ -236,16 +127,16 @@
 
 %SECTION
 \titleformat{\section}
-{\Large\sffamily}%Format
+{\Large\bfseries}%Format
 {\thesection}%Label
 {1em}%Sep
 {}%Before
 {}%After
-\titlespacing*{\section}{0pt}{\baselineskip}{0.3em}
+\titlespacing*{\section}{0pt}{\baselineskip}{0.4em}
 
 % %SUBSECTION
 \titleformat{\subsection}
-{\large\sffamily}%Format
+{\large\bfseries}%Format
 {\thesubsection}%Label
 {1em}%Sep
 {}%Before
@@ -277,30 +168,18 @@
 
 
 %PAGE HEADER AND FOOTER
-\pagestyle{fancy}
-% \cfoot{\classpagefooter}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
-% \lhead{}
-% \chead{}
-% \rhead{}
-% \rfoot{\small\theauthor\ \version}
+\fancypagestyle{regular}{
+  \lhead{}
+  \chead{}
+  \rhead{}
+  \rfoot{}
+  \cfoot{\bfseries\sffamily\thepage\,/\,\pageref{LastPage}}
+}
+\pagestyle{regular}
 
 
-
-% \fancyhead{}
-% \fancyhead[L]{\ifthenelse{\isodd{\value{page}}}{\leftmark}{\rightmark}}
-% \fancyhead[R]{\thepage}
-% \renewcommand{\headrulewidth}{0pt}
-% \fancyfoot{}
-
-
-\fancyhead[LE]{\bfseries\sffamily\thepage}
-\fancyhead[RE]{}%{\rightmark}%Für Sectionname
-\fancyhead[LO]{}
-\fancyhead[RO]{\bfseries\sffamily\thepage}
-\cfoot{}
-\pagestyle{fancy}
 
 
 
@@ -342,3 +221,20 @@
 \newcommand{\intd}{\ \diff}% Infinitesimale beim Integral
 \newcommand{\argmax}{\operatorname{argmax}\,}
 
+
+\lstset{literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {Ã}{{\~A}}1 {ã}{{\~a}}1 {Õ}{{\~O}}1 {õ}{{\~o}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+}
