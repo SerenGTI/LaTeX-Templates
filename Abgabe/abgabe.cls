@@ -192,7 +192,7 @@
   captionpos=b,
   deletekeywords={},
   escapeinside={(*}{*)},
-  escapemath=true,
+  mathescape=true,
   extendedchars=true,
   frame=lines,
   xleftmargin=10pt,
