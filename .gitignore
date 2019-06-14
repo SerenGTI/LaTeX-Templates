@@ -7,6 +7,5 @@
 *.fls
 *.out
 *.pdf
-*.DS_Store
-*.DS_Store
 *.toc
+.DS_Store

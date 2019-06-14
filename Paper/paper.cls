@@ -49,6 +49,7 @@
 %Variablen, die durch Optionen bearbeitet werden können
 \newcommand{\prtname}{Kapitel}
 \newcommand{\satzname}{Satz}
+\renewcommand{\theoremautorefname}{Satz}
 \newcommand{\corname}{Korollar}
 \newcommand{\classpagefooter}{\small Seite \texttt{\thepage}\thinspace von\thinspace\texttt{\pageref{LastPage}}}
 
@@ -128,7 +129,7 @@
 %SECTION
 \titleformat{\section}
 {\Large\bfseries}%Format
-{\thesection}%Label
+{{\LARGE\thesection}}%Label
 {1em}%Sep
 {}%Before
 {}%After
@@ -137,7 +138,7 @@
 % %SUBSECTION
 \titleformat{\subsection}
 {\large\bfseries}%Format
-{\thesubsection}%Label
+{\Large\thesubsection}%Label
 {1em}%Sep
 {}%Before
 {}%After
@@ -145,8 +146,8 @@
 
 % %SUBSUBSECTION
 \titleformat{\subsubsection}
-{\normalfont\normalsize\sffamily}%Format
-{\thesubsubsection}%Label
+{\bfseries}%Format
+{\large\thesubsubsection}%Label
 {1em}%Sep
 {}%Before
 {}%After
@@ -154,12 +155,12 @@
 
 %PARAGRAPH
 \titleformat{\paragraph}[runin]
-{\itshape\sffamily}
+{\bfseries}
 {}
 {}
 {}
 {}
-\titlespacing*{\paragraph}{\parindent}{0pt}{\parindent}
+\titlespacing*{\paragraph}{0pt}{0pt}{\parindent}
 
 
 
