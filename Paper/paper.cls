@@ -12,7 +12,6 @@
 \RequirePackage{array}
 
 \RequirePackage{multicol}
-\RequirePackage{wrapfig}
 \RequirePackage{mathtools}
 \RequirePackage{amssymb}
 \RequirePackage{amsthm}
@@ -28,11 +27,12 @@
 \RequirePackage[framemethod=TikZ]{mdframed}
 \usetikzlibrary{arrows,intersections,patterns,calc}
 \RequirePackage{xfrac}
-\RequirePackage{diagbox}
 \RequirePackage[resetstyle, thmset=empty]{phfthm}
 \RequirePackage{pgfplots}
 \usepgfplotslibrary{fillbetween}
 
+\RequirePackage{tcolorbox}
+\tcbuselibrary{breakable} 
 
 
 
@@ -51,6 +51,7 @@
 \newcommand{\satzname}{Satz}
 \renewcommand{\theoremautorefname}{Satz}
 \newcommand{\corname}{Korollar}
+\newcommand{\folgname}{Folgerung}
 \newcommand{\classpagefooter}{\small Seite \texttt{\thepage}\thinspace von\thinspace\texttt{\pageref{LastPage}}}
 
 
@@ -59,6 +60,7 @@
 %%COLORS
 \DeclareOption{english}{
   \renewcommand{\satzname}{Theorem}
+  \renewcommand{\folgname}{Ehm.}
   \renewcommand{\corname}{Corollary}
   \renewcommand{\classpagefooter}{\small Page \texttt{\thepage}\thinspace of\thinspace\texttt{\pageref{LastPage}}}
 }
@@ -122,6 +124,7 @@
 \newtheorem{beispiel}{Beispiel}
 \newtheorem{lemma}{Lemma}
 \newtheorem{korollar}{\corname}
+\newtheorem{folgerung}{\folgname}
 \newtheorem{definition}{Definition}
 
 %SECTIONING UND LAYOUT
